@@ -1,4 +1,4 @@
-
+import os
 
 # Common constants
 TARGET_COLUMN = 'Churn'
@@ -59,3 +59,10 @@ PREDICT_FILE = 'predict.csv'
 PREDICT_DI_COLLECTION_NAME = "predict-telco-customer-churn"
 
 FINAL_MODEL_FILE_NAME = "GradientBoostingClassifier.pkl"
+
+# AWS_BUCKET_NAME = "tcc-s3-bucket"
+# AWS_BUCKET_PREFIX = "tcc-s3-bucket-artifact"
+# AWS_ACCESS_KEY = os.environ['AWS_ACCESS_KEY']
+# AWS_SECRET_KEY = os.environ['AWS_SECRET_KEY']
+# AWS_REGION = os.environ['AWS_REGION']
+

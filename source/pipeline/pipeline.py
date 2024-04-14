@@ -23,7 +23,7 @@ class DataPipeline:
         data_tras_obj = DataTransformation(self.utility_config)
         data_tras_obj.initiate_data_transformation(key)
 
-    def start_model_train_evalaute(self):
+    def start_model_train_evaluate(self):
         model_train_eval_obj = ModelTrainEvaluate(self.utility_config)
         model_train_eval_obj.initiate_model_training()
 
@@ -35,7 +35,7 @@ class DataPipeline:
         self.start_data_ingestion('train')
         self.start_data_validation('train')
         self.start_data_transformation('train')
-        self.start_model_train_evalaute()
+        self.start_model_train_evaluate()
 
     def run_predict_pipeline(self):
         self.start_data_ingestion('predict')

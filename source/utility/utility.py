@@ -1,5 +1,7 @@
 import pandas as pd
+import boto3
 import os
+from io import BytesIO
 from datetime import datetime
 from source.exception import ChurnException
 global_timestamp = None
@@ -37,4 +39,37 @@ def import_csv_file(filename, file_path):
 
     except ChurnException as e:
         print(f"path does not exist: {file_path}")
+        raise e
+
+
+def upload_artifact_to_s3(df, filename, file_path, bucket_name):
+    try:
+        s3_client = boto3.client()
+
+        try:
+            s3_client.head_bucket(Bucket=bucket_name)
+
+        except ClientError as e:
+            if e.response['Error']['Code']=='404':
+                raise ChurnException(f"S3 bucket {bucket_name} does not exists")
+            else:
+                raise e
+        csv_data = df.to_csv(index=False)
+
+        s3_bucket_key = f"{file_path}/{filename}"
+        s3_object_key = s3_object_key.replace("\\","/")
+        s3_client.put_object (Bucket=bucket_name,key=s3_object_key, Body =csv_data)
+    except ChurnException as e:
+        raise e
+
+def read_csv_from_s3(bucket_name, file_key):
+    try:
+        s3_client = boto3.client('s3')
+
+        file_key=file_key.replace("\\","/")
+        response = s3_client.get_object(Bucket=bucket_name,key=file_key)
+        content = response['Body'].read()
+        df = pd.read_csv(BytesIO(content))
+        return df
+    except ChurnException as e:
         raise e
