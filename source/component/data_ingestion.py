@@ -4,7 +4,7 @@ from pandas import DataFrame
 from source.exception import ChurnException
 from pymongo.mongo_client import MongoClient
 from sklearn.model_selection import train_test_split
-from source.utility.utility import export_data_csv
+from source.utility.utility import export_data_csv, upload_artifact_to_s3
 from source.logger import logging
 
 
@@ -36,8 +36,9 @@ class DataIngestion:
             # os.makedirs(dir_path, exist_ok=True)
             # data.to_csv(feature_store_file_path, index=False)
 
-            export_data_csv(data, feature_store_file_name, feature_store_file_path)
-
+            # export_data_csv(data, feature_store_file_name, feature_store_file_path)
+            upload_artifact_to_s3(data, feature_store_file_name, feature_store_file_path,
+                                  self.utility_config.aws_bucket_name)
             logging.info("complete: data load from mongoDB")
 
             return data
