@@ -1,12 +1,12 @@
 Create conda environment
-
 conda create -p virtual_environment python=3.10 -y 
+
 Activate conda environment: virtual_environment
-
 activate ./venv 
-Run the repository
 
+Run the repository
 python main.py 
+
 Telco Customer Churn Prediction Project
 
 This project revolves around predicting customer churn in a telecommunications company using machine learning. The project follows a structured workflow encompassing exploratory data analysis (EDA), data ingestion, transformation, validation, cleaning, model building, evaluation, and performance metrics calculation. Additionally, the model is deployed using AWS Lambda function with S3 bucket integration and GitHub Actions for automation.
